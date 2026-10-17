@@ -8,14 +8,14 @@
 namespace orderbook {
 
 struct Order {
-    OrderId id = 0;
-    Price price = 0;
-    Quantity quantity = 0;
-    Side side = Side::Buy;
-    OrderType type = OrderType::Limit;
+    OrderId id{0};
+    Price price{0};
+    Quantity quantity{0};
+    Side side{Side::Buy};
+    OrderType type{OrderType::Limit};
 
-    Order* next = nullptr;
-    Order* prev = nullptr;
+    Order* next{nullptr};
+    Order* prev{nullptr};
 
     Order(
         OrderId order_id, Price order_price, Quantity order_qty,
