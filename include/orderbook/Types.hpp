@@ -1,8 +1,6 @@
 // Types.hpp
 
-#ifndef ORDERBOOK_TYPES_HPP
-#define ORDERBOOK_TYPES_HPP
-
+#pragma once
 #include <cstdint>
 
 namespace orderbook {
@@ -24,5 +22,3 @@ namespace orderbook {
         Market = 1
     };
 }
-
-#endif
