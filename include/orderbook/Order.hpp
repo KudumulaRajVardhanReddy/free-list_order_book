@@ -1,8 +1,6 @@
 //Order.hpp
 
-#ifndef ORDERBOOK_ORDER_HPP
-#define ORDERBOOK_ORDER_HPP
-
+#pragma once
 #include "Types.hpp"
 
 namespace orderbook {
@@ -18,20 +16,16 @@ struct Order {
     Order* prev{nullptr};
 
     Order(
-        OrderId order_id, Price order_price, Quantity order_qty,
-        Side order_side, OrderType order_type = OrderType::Limit
+        OrderId id, Price price, Quantity qty,
+        Side side, OrderType type = OrderType::Limit
     ) :
-    id(order_id),
-    price(order_price),
-    quantity(order_qty),
-    side(order_side),
-    type(order_type),
-    next(nullptr),
-    prev(nullptr) {}
+    id(id),
+    price(price),
+    quantity(qty),
+    side(side),
+    type(type) {}
 
     Order() = default;
 };
 
 }
-
-#endif
