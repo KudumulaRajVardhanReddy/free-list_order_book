@@ -12,13 +12,6 @@ namespace orderbook {
     using Price = uint64_t;
     using Quantity = uint32_t;
 
-    enum class Side : uint8_t {
-        Buy = 0,
-        Sell = 1
-    };
-
-    enum class OrderType : uint8_t {
-        Limit = 0,
-        Market = 1
-    };
+    enum class Side : uint8_t { Buy = 0, Sell = 1 };
+    enum class OrderType : uint8_t { Limit = 0, Market = 1 };
 }
