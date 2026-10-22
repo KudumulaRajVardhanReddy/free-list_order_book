@@ -55,28 +55,34 @@ int main() {
         std::cout << "[Engine] Final Book State size: " << book.size() << " resting order(s).\n";
     });
 
-    // Ingestion Thread Submitting Orders
+        // Ingestion Thread Submitting Orders
     std::cout << "Submitting Limit Ask: Order #1 @ $100.50 (Qty: 50)...\n";
-    command_queue.push(OrderCommand{OrderCommand::Action::Add, 1, 10050, 50, Side::Sell, OrderType::Limit});
+    [[maybe_unused]] bool ok = command_queue.push(OrderCommand{OrderCommand::Action::Add, 1, 10050, 50, Side::Sell, OrderType::Limit});
+    assert(ok);
 
     std::cout << "Submitting Limit Ask: Order #2 @ $101.00 (Qty: 100)...\n";
-    command_queue.push(OrderCommand{OrderCommand::Action::Add, 2, 10100, 100, Side::Sell, OrderType::Limit});
+    ok = command_queue.push(OrderCommand{OrderCommand::Action::Add, 2, 10100, 100, Side::Sell, OrderType::Limit});
+    assert(ok);
 
     std::cout << "Submitting Limit Bid: Order #3 @ $100.00 (Qty: 30)...\n";
-    command_queue.push(OrderCommand{OrderCommand::Action::Add, 3, 10000, 30, Side::Buy, OrderType::Limit});
+    ok = command_queue.push(OrderCommand{OrderCommand::Action::Add, 3, 10000, 30, Side::Buy, OrderType::Limit});
+    assert(ok);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
     std::cout << "Submitting Crossing Buy: Order #4 @ $100.50 (Qty: 20)...\n";
-    command_queue.push(OrderCommand{OrderCommand::Action::Add, 4, 10050, 20, Side::Buy, OrderType::Limit});
+    ok = command_queue.push(OrderCommand{OrderCommand::Action::Add, 4, 10050, 20, Side::Buy, OrderType::Limit});
+    assert(ok);
 
     std::cout << "Cancelling Order #2...\n";
-    command_queue.push(OrderCommand{OrderCommand::Action::Cancel, 2, 0, 0, Side::Sell, OrderType::Limit});
+    ok = command_queue.push(OrderCommand{OrderCommand::Action::Cancel, 2, 0, 0, Side::Sell, OrderType::Limit});
+    assert(ok);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
     running = false;
 
     if (engine_thread.joinable()) engine_thread.join();
+
 
     std::cout << "Engine execution completed cleanly.\n";
 }
