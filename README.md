@@ -60,3 +60,14 @@ The benchmark evaluates the single-threaded execution of the engine's hot path: 
 | Max Latency | 86.10 µs |
 
 *\* Note on Min Latency: A recorded 0 ns latency is an artifact of the OS timer resolution (Query Performance Counter) being coarser than the L1-cached instruction execution time of the tested hot path.*
+
+## Scope & Future Plans
+
+This project represents my first iteration of a C++20 Order Book & Matching Engine, designed to explore high-throughput, low-latency concurrency models and data structure design. 
+
+While this prototype successfully validates core matching mechanics and lock-free thread decoupling, I am actively working on the next iteration (v2) to address key measurement and architectural limits:
+
+- **Allocation-Free Lookup Tables:** While order nodes use custom pool allocation, containers like `std::map` and `std::unordered_map` still allocate node memory on new inserts. The next iteration replaces these with open-addressing hash tables and fixed-size price level arrays to eliminate all dynamic allocations during runtime.
+- **Enhanced Timing Precision:** To bypass OS timer quantization on Windows (`std::chrono` 100ns step resolution), I am moving to batched timing loops and fenced hardware cycle counters (`rdtscp`) to capture micro-latency nuances.
+- **Isolated Queue Operations:** Refactoring the micro-benchmark loop to pre-seed resting orders, ensuring test iterations evaluate pure $O(1)$ queue updates rather than repeatedly creating and destroying price levels.
+- **Realistic L3 Synthetic Workloads:** Expanding beyond single-order benchmarks by building a multi-level market workload generator to evaluate cross-order fills, order book sweeps, and main-memory cache effects under real load.
