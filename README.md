@@ -1,4 +1,4 @@
-# Order Book & Matching Engine
+# Order Book & Matching Engine with Custom Memory Pool
 
 A multithreaded order book matching engine implemented in C++20. The system utilizes lock-free concurrency primitives and pre-allocated object pools to ensure zero dynamic memory allocations on the execution path.
 
